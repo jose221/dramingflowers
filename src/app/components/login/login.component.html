@@ -1,0 +1,40 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="../../../assets/icons/Purple-Lagoon-Dahlia-Bloom-500_637453a5.jpg" id="icon" alt="User Icon" />
+            <h1>
+                FlowersAdmin
+            </h1>
+        </div>
+
+        <form [formGroup]="loginForm">
+            <input type="text" id="email" class="fadeIn second" name="email" formControlName="email" placeholder="Correo">
+
+            <div class="error-messages">
+                <ng-container *ngFor="let error of error_messages.email">
+                    <div class="error-message" *ngIf="loginForm.get('email').hasError(error.type) && (loginForm.get('email').dirty ||loginForm.get('email').touched)">
+                        {{error.message}}
+                    </div>
+                </ng-container>
+            </div>
+            <input type="password" id="password" class="fadeIn second" name="password" formControlName="password" placeholder="Contraseña">
+
+            <div class="error-messages">
+                <ng-container *ngFor="let error of error_messages.password">
+                    <div class="error-message" *ngIf="loginForm.get('password').hasError(error.type) && (loginForm.get('password').dirty ||loginForm.get('password').touched)">
+                        {{error.message}}
+                    </div>
+                </ng-container>
+            </div>
+            <input type="submit" class="fadeIn fourth" [disabled]="!loginForm.valid" value="Entrar" (click)="tryLogin(loginForm.value)">
+
+        </form>
+
+        <div class="col-md-4 col-md-offset-4">
+            <p>¿No tienes una cuenta? <a routerLink="/register">Registrarse</a></p>
+        </div>
+    </div>
+</div>

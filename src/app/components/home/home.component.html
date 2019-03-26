@@ -1,0 +1,135 @@
+<nav style="background-color: #2471a3;"class="navbar navbar-light ">
+    <span style="color: aliceblue;" class="navbar-brand mb-0 h1">DraminFlowers</span>
+     <button type="button" class="btn btn-outline-light" (click)="doLogout()">
+        Cerrar Sesión
+     </button>
+</nav>
+<div  class="nav-side-menu">
+     <div [routerLink]="['/home']" class="brand">Bienvenido {{user.name}}</div>
+         <div class="menu-list"> 
+             <br>
+             <li><a [routerLink]="['/home']">Pedidos</a></li>
+             <br>
+             <li class="active"><a [routerLink]="['/comments']" routerLinkActive="router-link-active" >Comentarios</a></li>
+         </div>
+</div>
+        
+      
+      
+<div id="main" class="container">
+        
+    <br>
+    <br>
+    <div  class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="card" style="width: 20rem;">
+                <!-- <img class="card-img-top image" [src]="user.image" alt="Card image cap"> -->
+                
+                <div *ngIf='user.name == null' class="card-body">
+                    <form [formGroup]="profileForm">
+                        <div class="form-group">
+                            <label>Ingresa el nombre de la floreria para empezar: </label>
+                            <input type="text" formControlName="name" class="form-control" required>
+                        </div>
+                    </form>
+                    <a (click)="save(profileForm.value)" class="btn btn-primary">Guardar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="load">
+        Cargando...
+    </div>
+    <h1 class="text-center">LISTA DE PEDIDOS</h1>
+    <!--
+    <table class="table table-hover" *ngIf="!load">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Telefono</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of myOrders">
+                <th scope="row">{{order[0]}}</th>
+                <td>{{order[1]}}</td>
+                <td>{{order[4]}}</td>
+                <td>{{order[7].cell}}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm">Ver</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-outline-success" *ngIf="!order[6].confirmFlower" (click)="orderAcepted(order[0],order[6], order[5].userId)">Aceptar</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-sm btn-danger" *ngIf="!order[6].confirmFlower" (click)="orderRechazed(order[0], order[2])">Rechazar</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-sm btn-danger" *ngIf="!order[6].delivered" (click)="orderDelivered(order[0],order[6], order[5].userId)">Notficar
+  Entregado</a>
+                </td>
+                <td *ngIf="!order[10]">Esperando valoración del cliente</td>
+                <td *ngIf="order[10]">Valoración del cliente: {{order[10]}} Estrellas</td>
+
+            </tr>
+        </tbody>
+    </table>
+    -->
+    
+</div>
+<div id="main" class="container">
+     <div class="row">
+        <div>
+                  <ul>
+                      <li *ngFor="let order of myOrders">
+                           <a   data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+                                 <h2 class="text-center">Evento</h2>
+                                 <br>
+                                 <p># {{order[0]}} </p>
+                                 <p>Usuario {{order[1]}}</p>
+                                 <p>Fecha {{order[4]}}</p>
+                                 <p>Telefono: {{order[7].cell}}</p>
+                                 <button class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#exampleModal">Ver</button>
+                                 <button class="btn btn-sm btn-outline-success" *ngIf="!order[6].confirmFlower" (click)="orderAcepted(order[0],order[6], order[5].userId)">Aceptar</button> 
+                                 <button class="btn btn-sm btn-outline-danger" *ngIf="!order[6].confirmFlower" (click)="orderRechazed(order[0], order[2])">Rechazar</button>  
+                                 <hr>
+                                 <button  class="btn btn-primary btn-sm btn-danger text-center" *ngIf="!order[6].delivered" (click)="orderDelivered(order[0],order[6], order[5].userId)">Notficar Entregado</button>
+                           </a>
+                  
+                      </li> 
+                </ul>
+          
+          
+          
+        </div>
+     </div>
+</div>
+<!-- Button trigger modal -->
+
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
