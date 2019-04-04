@@ -5,8 +5,10 @@ import {
   FormBuilder,
   FormGroup,
   FormControl
-} from "@angular/forms";
-import { Router } from "@angular/router";
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import swal from 'sweetalert';
+
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,7 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  loading = false;
   error_messages = {
     email: [
       { type: 'required', message: 'El correo es necesario' },
@@ -34,8 +37,8 @@ export class LoginComponent implements OnInit {
   };
   constructor(public formBuilder: FormBuilder,
     // tslint:disable-next-line:variable-name
-            private _authService: AuthService,
-            private router: Router) {
+              private _authService: AuthService,
+              private router: Router) {
     this.loginForm = this.formBuilder.group(
       {
         password: new FormControl(
@@ -63,12 +66,22 @@ export class LoginComponent implements OnInit {
   }
 
   tryLogin(value) {
+    this.loading = true;
     this._authService.doLogin(value).then(
       data => {
+        this.loading = false;
         this.router.navigateByUrl('/home');
       }, err => {
+        this.loading = false;
+        swal('Ojo', 'Usuario y/o contraseña incorrectos', 'warning');
         console.log(err);
-      });
+      }).catch(
+        err => {
+          this.loading = false;
+          swal('Ops!', 'Al parecer ocurrió un error, intenta más tarde', 'error');
+
+        }
+      );
 }
 
 }

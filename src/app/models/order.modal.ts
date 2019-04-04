@@ -21,4 +21,10 @@ interface Order {
     name: string
 
     };
+    calificacion:number;
+    
+}
+interface dato{
+  name:string,
+  value:number
 }

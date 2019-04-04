@@ -20,6 +20,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { CommentsComponent } from './comments/comments.component';
 
+import { AgmCoreModule } from '@agm/core';
+import { NgxLoadingModule } from 'ngx-loading';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +40,11 @@ import { CommentsComponent } from './comments/comments.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseconfig)
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAQJyNrb6dX66fTMfDRTVlFNfQaRiHvcss'
+    }),
+    AngularFireModule.initializeApp(environment.firebaseconfig),
+    NgxLoadingModule.forRoot({})
   ],
   providers: [UserResolver, { provide: FirestoreSettingsToken, useValue: {} }],
   bootstrap: [AppComponent]

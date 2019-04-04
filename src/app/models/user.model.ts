@@ -1,4 +1,5 @@
 export class FirebaseUserModel {
+  id:string;
   image: string;
   name: string;
   provider: string;

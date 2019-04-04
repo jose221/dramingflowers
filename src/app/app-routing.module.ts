@@ -16,6 +16,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     resolve: { data: UserResolver }
   },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    resolve: { data: UserResolver }
+  },
   { path: 'login', component: LoginComponent, canActivate: [UserGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [UserGuard] },
   { path: 'comments', component: CommentsComponent, canActivate: [AuthGuard], resolve: { data: UserResolver } },

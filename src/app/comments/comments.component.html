@@ -4,13 +4,25 @@
         Cerrar Sesión
      </button>
 </nav>
+<br>
+
 <div  class="nav-side-menu">
-     <div [routerLink]="['/home']" class="brand">Bienvenido {{user.name}}</div>
+    <br>
+    <br>
+    <br>
+    <img  style="width: 50%; display:block;
+    margin:auto;"src="assets/1.png" alt="">
+    <br>
+    <br>
+     <div style="text-align:center; " [routerLink]="['/home']" ><h6> Bienvenido {{user.name}}</h6></div>
+     
          <div class="menu-list"> 
              <br>
-             <li><a [routerLink]="['/home']">Pedidos</a></li>
              <br>
-             <li class="active"><a [routerLink]="['/comments']">Comentarios</a></li>
+             <hr>
+             <li [routerLink]="['/home']" ><a [routerLink]="['/home']">Pedidos</a></li>
+             <br>
+             <li [routerLink]="['/comments']" class="active"><a [routerLink]="['/comments']" routerLinkActive="router-link-active" >Comentarios</a></li>
          </div>
 </div>
         
@@ -82,9 +94,9 @@
 <div *ngIf="cargando">cargando...</div>
 <div *ngIf="datosINIT">Aun no tienes comentarios :D</div>
 </div>
-<button id="main" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<!--<button id="main" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Nuevo Comentario
-  </button>
+  </button>-->
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

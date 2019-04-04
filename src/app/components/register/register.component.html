@@ -41,7 +41,7 @@
 
 
 
-           
+
 
 
             <input type="password" id="password" class="fadeIn second" name="password" formControlName="password" placeholder="Contraseña">
@@ -62,28 +62,14 @@
                     </div>
                 </ng-container>
             </div>
-
-            <input type="number" id="lat" class="fadeIn second" name="lat" formControlName="lat" placeholder="Latitud">
-
-            <div class="error-messages">
-                <ng-container *ngFor="let error of error_messages.lat">
-                    <div class="error-message" *ngIf="loginForm.get('lat').hasError(error.type) && (loginForm.get('lat').dirty ||loginForm.get('lat').touched)">
-                        {{error.message}}
-                    </div>
-                </ng-container>
+            <br>
+            <div class="text-center text-lg-center">
+                Seleccionar la ubicación de tu floreria dando click
             </div>
-
-
-            <input type="number" id="lng" class="fadeIn second" name="lng" formControlName="lng" placeholder="Longitud">
-
-            <div class="error-messages">
-                <ng-container *ngFor="let error of error_messages.lng">
-                    <div class="error-message" *ngIf="loginForm.get('lng').hasError(error.type) && (loginForm.get('lng').dirty ||loginForm.get('lng').touched)">
-                        {{error.message}}
-                    </div>
-                </ng-container>
-            </div>
-
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14" (mapClick)="schoolClicked($event)">
+                <agm-marker [markerDraggable]="true" [latitude]="lat1" [longitude]="lng1">
+                </agm-marker>
+            </agm-map>
             <input type="submit" class="fadeIn fourth" [disabled]="!loginForm.valid" value="Entrar" (click)="tryRegister(loginForm.value)">
 
         </form>
@@ -91,5 +77,9 @@
         <div class="col-md-4 col-md-offset-4">
             <p>¿Ya tienes una cuenta? <a routerLink="/login">Iniciar Sesión</a></p>
         </div>
+
     </div>
+
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '5px' }">
+</ngx-loading>

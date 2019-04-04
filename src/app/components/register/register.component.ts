@@ -7,6 +7,7 @@ import {
   FormControl
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 
 
 @Component({
@@ -15,7 +16,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  lat = 21.158902444779304;
+  lng = -86.81429233481413;
+  lat1 = 0;
+  lng1 = 0;
+  loading = false;
   loginForm: FormGroup;
+  // tslint:disable-next-line:variable-name
   error_messages = {
     email: [
       { type: 'required', message: 'El correo es necesario' },
@@ -30,7 +37,11 @@ export class RegisterComponent implements OnInit {
         type: 'maxLength',
         message: 'La contraseña a pasado el limite de los caracteres'
       },
-      { type: 'pattern', message: 'Ingresa una contraseña valida, (Un numero, una mayuscula y una miniscula)' }
+      {
+        type: 'pattern',
+        message:
+          'Ingresa una contraseña valida, (Un numero, una mayuscula y una miniscula)'
+      }
     ],
     confirmPassword: [
       { type: 'required', message: 'Es necesario este campo' },
@@ -77,19 +88,7 @@ export class RegisterComponent implements OnInit {
         confirmPassword: new FormControl(
           '',
           Validators.compose([Validators.required])
-        ),
-        lat: new FormControl(
-          '',
-          Validators.compose([
-            Validators.required,
-          ])
-        ),
-        lng: new FormControl(
-          '',
-          Validators.compose([
-            Validators.required,
-          ])
-        ),
+        )
       },
       {
         validator: this.checkPasswords
@@ -107,14 +106,40 @@ export class RegisterComponent implements OnInit {
   }
 
   tryRegister(value) {
-    this._authService.doRegister(value).then(
-      res => {
-        this._authService.addUser(value.email, value);
-        // this.router.navigateByUrl('/home');
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this.loading = true;
+    if (this.lat1 === 0 || this.lng === 0) {
+      this.loading = false;
+      swal('Ojo', 'Es necesario seleccionar tu ubicación para poder continuar', 'warning');
+    } else {
+      const obj = {
+        email: value.email,
+        lat: this.lat1,
+        lng: this.lng1
+      };
+      this._authService.doRegister(value).then(
+        res => {
+          this._authService.addUser(value.email, obj);
+          this.loading = false;
+          // this.router.navigateByUrl('/home');
+        },
+        err => {
+          this.loading = false;
+          swal('Ojo', 'Al parecer este usuario ya existe', 'warning');
+          console.log(err);
+        }
+      ).catch(
+        err => {
+          this.loading = false;
+          swal('Ops!', 'Al parecer ocurrió un error, intenta más tarde', 'error');
+
+        }
+      );
+    }
+  }
+
+  schoolClicked($event) {
+    this.lat1 = $event.coords.lat;
+    this.lng1 = $event.coords.lng;
+    console.log(this.lat1, this.lng1);
   }
 }

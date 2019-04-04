@@ -4,13 +4,25 @@
         Cerrar Sesión
      </button>
 </nav>
+<br>
+
 <div  class="nav-side-menu">
-     <div [routerLink]="['/home']" class="brand">Bienvenido {{user.name}}</div>
+    <br>
+    <br>
+    <br>
+    <img  style="width: 50%; display:block;
+    margin:auto;"src="assets/1.png" alt="">
+    <br>
+    <br>
+     <div style="text-align:center; " [routerLink]="['/home']" ><h6> Bienvenido {{user.name}}</h6></div>
+     
          <div class="menu-list"> 
              <br>
-             <li><a [routerLink]="['/home']">Pedidos</a></li>
              <br>
-             <li class="active"><a [routerLink]="['/comments']" routerLinkActive="router-link-active" >Comentarios</a></li>
+             <hr>
+             <li [routerLink]="['/home']" ><a [routerLink]="['/home']">Pedidos</a></li>
+             <br>
+             <li [routerLink]="['/comments']" class="active"><a [routerLink]="['/comments']" routerLinkActive="router-link-active" >Comentarios</a></li>
          </div>
 </div>
         
@@ -88,18 +100,38 @@
         <div>
                   <ul>
                       <li *ngFor="let order of myOrders">
-                           <a   data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+                           <a   *ngIf="!order[6].delivered">
+                               
                                  <h2 class="text-center">Evento</h2>
                                  <br>
                                  <p># {{order[0]}} </p>
                                  <p>Usuario {{order[1]}}</p>
                                  <p>Fecha {{order[4]}}</p>
                                  <p>Telefono: {{order[7].cell}}</p>
-                                 <button class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#exampleModal">Ver</button>
-                                 <button class="btn btn-sm btn-outline-success" *ngIf="!order[6].confirmFlower" (click)="orderAcepted(order[0],order[6], order[5].userId)">Aceptar</button> 
-                                 <button class="btn btn-sm btn-outline-danger" *ngIf="!order[6].confirmFlower" (click)="orderRechazed(order[0], order[2])">Rechazar</button>  
-                                 <hr>
-                                 <button  class="btn btn-primary btn-sm btn-danger text-center" *ngIf="!order[6].delivered" (click)="orderDelivered(order[0],order[6], order[5].userId)">Notficar Entregado</button>
+                                 
+                                
+
+                                <!-- <button class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#exampleModal">Ver</button>-->
+								        <form action="" method="post">
+                                <p class="clasificacion">
+                                <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                 --><label for="radio1">&#9733;</label><!--
+                                 --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                                 --><label for="radio2">&#9733;</label><!--
+                                 --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                                 --><label for="radio3">&#9733;</label><!--
+                                 --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                                 --><label for="radio4">&#9733;</label><!--
+                                 --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                                 --><label for="radio5">&#9733;</label>
+                                
+              </p>
+              
+            </form>
+                                 <button id="boton" class="btn btn-sm btn-outline-success" *ngIf="!order[6].confirmFlower" (click)="orderAcepted(order[0],order[6], order[5].userId)">Aceptar</button> 
+                                 <button type="button" class="close" *ngIf="!order[6].confirmFlower" (click)="orderRechazed(order[0], order[2])" >Rechazar</button>
+                                 
+                                 <button id="boton" class="btn btn-primary btn-sm btn-danger text-center" *ngIf="!order[6].delivered" (click)="orderDelivered(order[0],order[6], order[5].userId)">Entregado</button>
                            </a>
                   
                       </li> 
@@ -113,23 +145,5 @@
 <!-- Button trigger modal -->
 
       
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
+     
+      

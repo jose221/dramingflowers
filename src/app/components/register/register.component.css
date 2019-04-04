@@ -331,3 +331,7 @@ h1 {
 .row {
     margin-top: 10px;
 }
+
+agm-map {
+    height: 200px;
+}
