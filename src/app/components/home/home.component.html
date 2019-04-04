@@ -127,11 +127,13 @@
                                 
               </p>
               
-            </form>
+            </form> 
+                             <hr>
                                  <button id="boton" class="btn btn-sm btn-outline-success" *ngIf="!order[6].confirmFlower" (click)="orderAcepted(order[0],order[6], order[5].userId)">Aceptar</button> 
-                                 <button type="button" class="close" *ngIf="!order[6].confirmFlower" (click)="orderRechazed(order[0], order[2])" >Rechazar</button>
-                                 
-                                 <button id="boton" class="btn btn-primary btn-sm btn-danger text-center" *ngIf="!order[6].delivered" (click)="orderDelivered(order[0],order[6], order[5].userId)">Entregado</button>
+                               
+                                 <button type="button" class="btn btn-sm btn-outline-danger text-center" *ngIf="!order[6].confirmFlower" (click)="orderRechazed(order[0], order[2])" >rechazar</button>
+                             <hr>
+                                 <button id="boton" class="btn btn-primary btn-sm btn-danger text-center" *ngIf="!order[6].delivered" (click)="orderDelivered(order[0],order[6], order[5].userId)">Enviar Entregado</button>
                            </a>
                   
                       </li> 
